@@ -1,7 +1,9 @@
 package com.examples;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.shared.verifier.VerificationException;
 import org.apache.maven.shared.verifier.Verifier;
 import org.junit.Test;
@@ -19,5 +21,18 @@ public class MavenVerifierExamplesTest {
 		verifier.verifyFileContentMatches(
 				verifier.getBasedir() + "/target/surefire-reports/com.examples.AppTest.txt",
 				"(?s).*Tests run: 1, Failures: 0, Errors: 0, Skipped: 0(?s).*");
+	}
+
+	@Test
+	public void testInstallOnMavenQuickStartExample() throws VerificationException, IOException {
+		File localRepo = new File("target/test-classes/local-repo");
+		FileUtils.deleteDirectory(localRepo);
+		String baseDir = new File("target/test-classes/maven-quickstart-example").getAbsolutePath();
+		Verifier verifier = new Verifier(baseDir);
+		verifier.setLocalRepo(localRepo.getAbsolutePath());
+		verifier.addCliArgument("install");
+		verifier.execute();
+		verifier.verify(true);
+		verifier.verifyArtifactPresent("com.examples", "maven-quickstart-example", "1.0-SNAPSHOT", "jar");
 	}
 }
