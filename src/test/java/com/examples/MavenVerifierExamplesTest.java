@@ -51,4 +51,17 @@ public class MavenVerifierExamplesTest {
 		verifier.verifyTextInLog("Apache Maven Wrapper 3.2.0");
 	}
 
+	@Test
+	public void testWithEmbeddedLauncher() throws VerificationException, IOException {
+		File localRepo = new File("target/test-classes/local-repo");
+		FileUtils.deleteDirectory(localRepo);
+		String baseDir = new File("target/test-classes/maven-quickstart-example").getAbsolutePath();
+		Verifier verifier = new Verifier(baseDir);
+		verifier.setLocalRepo(localRepo.getAbsolutePath());
+		verifier.setForkJvm(false); // use the Embedded3xLauncher Maven launcher
+		verifier.addCliArgument("install");
+		verifier.execute();
+		verifier.verify(true);
+		verifier.verifyArtifactPresent("com.examples", "maven-quickstart-example", "1.0-SNAPSHOT", "jar");
+	}
 }
