@@ -43,10 +43,12 @@ public class MavenVerifierExamplesTest {
 		String baseDir = new File("target/test-classes/maven-example-with-maven-wrapper").getAbsolutePath();
 		Verifier verifier = new Verifier(baseDir);
 		verifier.setLocalRepo(localRepo.getAbsolutePath());
+		verifier.setEnvironmentVariable("MVNW_VERBOSE", "true");
 		verifier.addCliArgument("install");
 		verifier.execute();
 		verifier.verify(true);
 		verifier.verifyArtifactPresent("com.examples", "maven-example-with-maven-wrapper", "1.0-SNAPSHOT", "jar");
+		verifier.verifyTextInLog("Apache Maven Wrapper 3.2.0");
 	}
 
 }
