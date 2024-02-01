@@ -16,5 +16,8 @@ public class MavenVerifierExamplesTest {
 		verifier.execute();
 		verifier.verify(true); // throws an exception in case of errors in the build log
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/maven-quickstart-example-1.0-SNAPSHOT.jar");
+		verifier.verifyFileContentMatches(
+				verifier.getBasedir() + "/target/surefire-reports/com.examples.AppTest.txt",
+				"(?s).*Tests run: 1, Failures: 0, Errors: 0, Skipped: 0(?s).*");
 	}
 }
