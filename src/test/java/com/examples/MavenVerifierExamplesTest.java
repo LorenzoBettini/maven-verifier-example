@@ -9,7 +9,7 @@ import org.junit.Test;
 public class MavenVerifierExamplesTest {
 
 	@Test
-	public void testRunOnMavenQuickStartExample() throws VerificationException {
+	public void testPackageOnMavenQuickStartExample() throws VerificationException {
 		String baseDir = new File("target/test-classes/maven-quickstart-example").getAbsolutePath();
 		Verifier verifier = new Verifier(baseDir);
 		verifier.addCliArgument("package");
