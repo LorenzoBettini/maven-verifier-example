@@ -35,4 +35,18 @@ public class MavenVerifierExamplesTest {
 		verifier.verify(true);
 		verifier.verifyArtifactPresent("com.examples", "maven-quickstart-example", "1.0-SNAPSHOT", "jar");
 	}
+
+	@Test
+	public void testInstallOnMavenExampleWithMavenWrapper() throws VerificationException, IOException {
+		File localRepo = new File("target/test-classes/local-repo");
+		FileUtils.deleteDirectory(localRepo);
+		String baseDir = new File("target/test-classes/maven-example-with-maven-wrapper").getAbsolutePath();
+		Verifier verifier = new Verifier(baseDir);
+		verifier.setLocalRepo(localRepo.getAbsolutePath());
+		verifier.addCliArgument("install");
+		verifier.execute();
+		verifier.verify(true);
+		verifier.verifyArtifactPresent("com.examples", "maven-example-with-maven-wrapper", "1.0-SNAPSHOT", "jar");
+	}
+
 }
