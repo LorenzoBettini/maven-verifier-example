@@ -51,6 +51,17 @@ public class MavenVerifierExamplesTest {
 		verifier.verifyTextInLog("Apache Maven Wrapper 3.2.0");
 	}
 
+	/**
+	 * Note that once we put the maven-embedder in the classpath, it will become the
+	 * default: The Verifier first tries to reflectively load the embedder if we
+	 * don't specify a value for maven.home (which we never do in these tests).
+	 * Without the embedded in the classpath and without maven.home, the Verifier
+	 * will delegate the system shell and the system path for executing the "mvn"
+	 * executable.
+	 * 
+	 * @throws VerificationException
+	 * @throws IOException
+	 */
 	@Test
 	public void testWithEmbeddedLauncher() throws VerificationException, IOException {
 		File localRepo = new File("target/test-classes/local-repo");
