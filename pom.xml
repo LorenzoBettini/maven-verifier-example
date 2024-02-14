@@ -16,6 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+		<maven-embedder-version>3.9.6</maven-embedder-version>
 	</properties>
 
 	<dependencies>
@@ -35,7 +36,7 @@
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-embedder</artifactId>
-			<version>3.9.6</version>
+			<version>${maven-embedder-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- START transitive dependencies of embedder -->
@@ -49,7 +50,7 @@
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-compat</artifactId>
-			<version>3.9.6</version>
+			<version>${maven-embedder-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
